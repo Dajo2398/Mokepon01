@@ -5,8 +5,16 @@ let VidasEnemigo = 3
 
 
 function iniciarJuego()  {
-    let botonMascota = document.getElementById('boton-mascota')
-    botonMascota.addEventListener('click',seleccionarMascotaJugador)
+
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'none'
+    let sectionReiniciarJuego = document.getElementById('reiniciar')
+    sectionReiniciarJuego.style.display = 'none'
+
+
+
+    let botonSeleccionar = document.getElementById('boton-seleccionar')
+    botonSeleccionar.addEventListener('click',validarSeleccion)
 
     let botonFuego = document.getElementById('boton-fuego')
     botonFuego.addEventListener('click',ataqueFuego)
@@ -15,10 +23,31 @@ function iniciarJuego()  {
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click',ataqueTierra)
     let botonReiniciar = document.getElementById('boton-reiniciar')
-    botonReiniciar.addEventListener('click',reiniciarJuego)
+    botonReiniciar.addEventListener('click',reiniciarJuego) 
 }
 
+function validarSeleccion() {
+
+    let inputHip = document.getElementById('Hipodoge').checked
+    let inputCapi = document.getElementById('Capipepo').checked
+    let inputRati = document.getElementById('Ratigueya').checked
+
+    if (inputCapi || inputHip || inputRati){
+       
+        seleccionarMascotaJugador()
+    }else {alert("Debes seleccionar un personaje")}
+}    
+
 function seleccionarMascotaJugador() {
+
+    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+    sectionSeleccionarAtaque.style.display = 'block'
+    let sectionReiniciarJuego = document.getElementById('reiniciar')
+    sectionReiniciarJuego.style.display = 'none'
+    let sectionSeleccionMascota = document.getElementById('seleccionar-mascota')
+    sectionSeleccionMascota.style.display = 'none'
+
+
     let inputHip = document.getElementById('Hipodoge').checked
     let inputCapi = document.getElementById('Capipepo').checked
     let inputRati = document.getElementById('Ratigueya').checked
@@ -33,12 +62,12 @@ function seleccionarMascotaJugador() {
     }else if ( inputRati) {
         alert("Seleccionaste Ratigueya")
         spanMascotaJugador.innerHTML = 'Ratigueya'
-    }else {alert("Debes seleccionar un personaje")
-        }
+    
   
  
    seleccionarMascotaEnemigo ()
    
+}
 }   
     
 function seleccionarMascotaEnemigo(){ 
@@ -139,10 +168,12 @@ function revisarVidas(){
 
     if (VidasEnemigo === 0 ) {
         crearMensajeFinal('Felicitaciones, ganaste!!!')
+        
 
     }else if (VidasJugador === 0){
 
         crearMensajeFinal('Lo siento, perdiste')
+       
     }
 }
 
@@ -160,6 +191,8 @@ function crearMensajeFinal(resultadoFinal){
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.disabled = true 
 
+    let sectionReiniciarJuego = document.getElementById('reiniciar')
+    sectionReiniciarJuego.style.display = 'block'
         
 
 }
@@ -178,3 +211,5 @@ function reiniciarJuego(){
 
 }
 window.addEventListener('load', iniciarJuego)
+
+
