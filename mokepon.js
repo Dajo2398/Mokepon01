@@ -41,7 +41,7 @@ function validarSeleccion() {
 function seleccionarMascotaJugador() {
 
     let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'block'
+    sectionSeleccionarAtaque.style.display = 'flex'
     let sectionReiniciarJuego = document.getElementById('reiniciar')
     sectionReiniciarJuego.style.display = 'none'
     let sectionSeleccionMascota = document.getElementById('seleccionar-mascota')
@@ -124,13 +124,28 @@ function ataqueAleatorioEnemigo(){
 }
 
 
-function crearMensaje (resultadoBatalla){
-    let sectionMensajes = document.getElementById('mensajes')
-    let parrafo = document.createElement('p')
-    
-    parrafo.innerHTML = 'Tu mascota atacó con ' +ataqueJugador+ ' ,la mascota del enemigo atacó con '+ataqueEnemigo+ ' -' +resultadoBatalla+ '...'
+function crearMensaje (resultado){
 
-    sectionMensajes.appendChild(parrafo)
+    let sectionResultado = document.getElementById('resultado')
+    let sectionAtaqueDelJugador = document.getElementById('ataque-del-jugador')
+    let sectionAtqueDelEnemigo = document.getElementById('ataque-del-enemigo')
+
+    let nuevoAtaqueDelJugador = document.createElement('p')
+    let nuevoAtaqueDelEnemigo = document.createElement('p')
+    let notificacion = document.createElement('p')
+
+
+    notificacion.innerHTML = resultado
+    ataqueJugador.innerHTML = nuevoAtaqueDelJugador
+    ataqueEnemigo.innerHTML = nuevoAtaqueDelEnemigo
+
+    
+
+    sectionResultado.appendChild(notificacion)
+    sectionAtaqueDelJugador.appendChild(nuevoAtaqueDelJugador)
+    sectionAtqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo)
+
+
 }
 
 
@@ -201,13 +216,7 @@ function reiniciarJuego(){
     location.reload()
     
 
-    /*VidasJugador = 3
-    VidasEnemigo = 3
-    let spanVidasJugadador = document.getElementById('vidas-jugador')
-    let spanVidasEnemigo = document.getElementById('vidas-enemigo')
-
-    spanVidasJugadador.innerHTML = VidasJugador
-    spanVidasEnemigo.innerHTML = VidasEnemigo*/
+    
 
 }
 window.addEventListener('load', iniciarJuego)

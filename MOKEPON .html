@@ -48,28 +48,47 @@
 
             <h1 class="titulo" > Mokepon 🔥💧🌱</h1>
 
-            <h2>Elige tu ataque: </h2>
+            <h2 class="subtitulo">Elige tu ataque: </h2>
 
-            <p>Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
-            <p>La mascota <span id="mascota-del-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+            <div  >
+                <button id="boton-fuego" class="botones-ataque" >FUEGO 🔥</button>
+                <button id="boton-agua" class="botones-ataque" >AGUA 💧</button>
+                <button id="boton-tierra" class="botones-ataque">TIERRA 🌱</button>
+            </div>
 
-
-            <p>
-              <button id="boton-fuego">FUEGO 🔥</button>
-              <button id="boton-agua">AGUA 💧</button>
-              <button id="boton-tierra">TIERRA 🌱</button>
-            </p>
-        </section>
-
-        <section id="mensajes">
+            <div>
+                <!-- <section id="mensajes">
           
+                </section> -->
+
+                <div id="resultado"></div>
+                <div id="ataque-del-jugador"></div>
+                <div id="ataque-del-enemigo"></div>
+        
+                <section id="reiniciar">
+                    <button id="boton-reiniciar">Reiniciar</button>
+        
+                </section>
+        
+                
+            </div>
+
+            <div class="informacion-vidas" >
+                <p>Tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas</p>
+                <p id="informacion-vidas-enemigo">La mascota <span id="mascota-del-enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+
+            </div>
+
+
+
+
+           
+
+
+           
         </section>
 
-        <section id="reiniciar">
-            <button id="boton-reiniciar">Reiniciar</button>
-
-        </section>
-
+       
 
 
     </body>
