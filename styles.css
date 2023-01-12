@@ -15,9 +15,11 @@ body {
 
 }
 
-#subtitulo {
+.subtitulo {
 
-   color:rgb(209, 28, 28)
+   color:rgb(230, 35,35);
+   font-size: 32px;
+   
 
 
     
@@ -33,22 +35,40 @@ body {
 
 } 
 
-#tarjetas {
+.tarjetas {
    
-    display: block;
+    display: flex;
+    
     
 }
 
 
 .tarjeta-de-mokepon {
 
-    width: 100px;
-    height: 100px;
-    background: aquamarine;
+    width: 200px;
+    height: 200px;
+    background: #6F1AB6;
     padding: 10px;
     box-sizing: border-box;
     margin: 10px;
     border: 3px solid black;
+    border-radius: 20px;
+    display: flex;
+    color: rgb(230, 35,35);
+    font-size: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+
+
+}
+
+.tarjeta-de-mokepon img {
+
+    width: 128px;
+    height: 102px;
 
 }
 
@@ -60,12 +80,29 @@ input {
 
 #boton-seleccionar {
 
-    width: 110px;
-    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 50px;
     background-color: greenyellow;
     border: 3px solid black;
     box-sizing: border-box;
     padding: 10px;
-    margin: 40px;
+    margin: 30px;
+    border-radius: 10px;
+    font-family: 'Spicy Rice', cursive;
+    font-size: 19px;
+
+}
+
+
+/* SEGUNDA PANTALLA */
+
+
+#seleccionar-ataque {
+
+    display: flex;
+
 
 }
