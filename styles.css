@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital@1&display=swap');
 
@@ -6,6 +6,7 @@ body {
 
     
     background-color: #251749;
+     font-family: 'Poppins', sans-serif;
 
 
 }
@@ -37,9 +38,10 @@ body {
 
 } 
 
-.tarjetas {
+.tarjetas, .grupo-botones-ataque {
    
     display: flex;
+    gap: 20px;
     
     
 }
@@ -78,9 +80,11 @@ body {
 input{
     display: none;
     
-
 }
 
+input:checked + label  {
+    background-color: #7f0fa1;
+}
 
 #boton-seleccionar {
 
@@ -103,14 +107,14 @@ input{
 
 #seleccionar-ataque {
 
-    
+    display: flex;
     flex-direction: column;
     align-items: center;
     
 }
 
-.botones-ataque {
-
+.botones-ataque { 
+    
     background-color: #6F1AB6;
     height: 50px;
     width: 160px;
@@ -119,49 +123,58 @@ input{
     font-size: 25px;
     margin: 10px;
     color: rgb(230, 35,35);
+    justify-content: center;
+    align-items: center;
 }
 
 .mensajes {
-    
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: greenyellow;
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
-    width: 280px;
+    width: 300px;
     border-radius: 20px;
     border: 3px solid black;
-    margin-top:20px;
-    
-    
-
-    
-}
-
-
-.informacion-vidas {
-
-    font-family: 'Poppins', sans-serif;
-    font-size: 25px;
-    
-
-    
+    margin-top:20px;      
 }
 
 
 #boton-reiniciar {
-
     border: none;
     color:rgb(230, 35, 35);
-    font-family: 'Poppins', sans-serif;
     background-color: transparent;
-
-
 }
 
+.ataques {
+    display: grid;
+    font-size: 25px;
+    grid-template-columns: 140px 140px;
+    justify-items: center;
+    margin: 0px;
+}
 
-#informacion-vidas-enemigo {
+.informacion-jugador, .informacion-enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-    margin-top: 5px;
+@media (max-width:664px){
+    .tarjetas {
+        flex-direction: column;  
+    }
+
+    .titulo {
+        font-size: 40px;
+    }
+
+    .subtitulo {
+        font-size: 20px;
+    }  
+    .grupo-botones-ataque {
+        flex-direction: column;
+        gap: 0px;
+    }
 }
