@@ -26,10 +26,12 @@ const sectionAtaquesDelJugador = document.getElementById('ataques-del-jugador')
 const sectionAtaquesDelEnemigo = document.getElementById('ataques-del-enemigo')
 
 const sectionMensajeFinal = document.getElementById("resultado")
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 
 let mokepones = []
 let ataqueJugador
 let ataqueEnemigo
+let opcionDeMokepones
 let VidasJugador = 3
 let VidasEnemigo = 3
 
@@ -43,7 +45,7 @@ class Mokepon {
 }
 
 let hipodoge = new Mokepon ('Hipodoge','./Assets/mokepons_mokepon_hipodoge_attack.png',5)
-let capipepo = new Mokepon ('Capipepo','./Assets/mokepons_mokepon_capipepo_attack.png" alt="Capipepo',5)
+let capipepo = new Mokepon ('Capipepo','./Assets/mokepons_mokepon_capipepo_attack.png',5)
 let ratigueya = new Mokepon ('Ratigueya','./Assets/mokepons_mokepon_ratigueya_attack.png',5)
 
 hipodoge.ataques.push(
@@ -76,14 +78,21 @@ mokepones.push(hipodoge,capipepo,ratigueya)
 function iniciarJuego()  {
     sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciarJuego.style.display = 'none'    
-    botonSeleccionar.addEventListener('click',validarSeleccion)
-    botonFuego.addEventListener('click',ataqueFuego)
+        botonFuego.addEventListener('click',ataqueFuego)
     botonAgua.addEventListener('click',ataqueAgua)
     botonTierra.addEventListener('click',ataqueTierra)
     botonReiniciar.addEventListener('click',reiniciarJuego)
+    botonSeleccionar.addEventListener('click',validarSeleccion)
 
-    mokepones.forEach((Mokepon) => {
-        console.log(Mokepon.nombre)
+    mokepones.forEach((Mokepon) => {  
+        opcionDeMokepones = `
+        <input type="radio"   id=${Mokepon.nombre} name="mascota" /> 
+        <label class="tarjeta-de-mokepon" for=${Mokepon.nombre} >
+          <p>${Mokepon.nombre}</p>
+          <img src=${Mokepon.foto} alt=${Mokepon.nombre}>
+        </label>
+        `
+        contenedorTarjetas.innerHTML  += opcionDeMokepones
     })
 }
 
