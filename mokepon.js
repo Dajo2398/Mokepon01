@@ -7,11 +7,6 @@ const botonTierra = document.getElementById('boton-tierra')
 const botonReiniciar = document.getElementById('boton-reiniciar')
 
 
-const inputHip = document.getElementById('Hipodoge')
-const inputCapi = document.getElementById('Capipepo')
-const inputRati = document.getElementById('Ratigueya')
-
-
 const sectionSeleccionMascota = document.getElementById('seleccionar-mascota')
 const spanMascotaJugador = document.getElementById('mascota-jugador')
 
@@ -32,6 +27,9 @@ let mokepones = []
 let ataqueJugador
 let ataqueEnemigo
 let opcionDeMokepones
+let inputHip 
+let inputCapi 
+let inputRati 
 let VidasJugador = 3
 let VidasEnemigo = 3
 
@@ -78,7 +76,7 @@ mokepones.push(hipodoge,capipepo,ratigueya)
 function iniciarJuego()  {
     sectionSeleccionarAtaque.style.display = 'none'
     sectionReiniciarJuego.style.display = 'none'    
-        botonFuego.addEventListener('click',ataqueFuego)
+    botonFuego.addEventListener('click',ataqueFuego)
     botonAgua.addEventListener('click',ataqueAgua)
     botonTierra.addEventListener('click',ataqueTierra)
     botonReiniciar.addEventListener('click',reiniciarJuego)
@@ -93,6 +91,11 @@ function iniciarJuego()  {
         </label>
         `
         contenedorTarjetas.innerHTML  += opcionDeMokepones
+
+        inputHip = document.getElementById('Hipodoge')
+        inputCapi = document.getElementById('Capipepo')
+        inputRati = document.getElementById('Ratigueya')
+
     })
 }
 
@@ -109,14 +112,14 @@ function seleccionarMascotaJugador() {
     sectionSeleccionMascota.style.display = 'none'
   
     if (inputHip.checked){ 
-        alert("Seleccionaste Hipodoge")
-        spanMascotaJugador.innerHTML = 'Hipodoge'
+        alert("Seleccionaste "+inputHip.id)
+        spanMascotaJugador.innerHTML = inputHip.id
     }else if ( inputCapi.checked) {
-        alert("Seleccionaste Capipepo")
-        spanMascotaJugador.innerHTML = 'Capipepo'
+        alert("Seleccionaste "+inputCapi.id)
+        spanMascotaJugador.innerHTML = inputCapi.id
     }else if ( inputRati.checked) {
-        alert("Seleccionaste Ratigueya")
-        spanMascotaJugador.innerHTML = 'Ratigueya'
+        alert("Seleccionaste "+ inputRati.id)
+        spanMascotaJugador.innerHTML = inputRati.id
     }
  seleccionarMascotaEnemigo ()  
 }   
