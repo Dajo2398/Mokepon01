@@ -14,7 +14,7 @@ const spanMascotaJugador = document.getElementById('mascota-jugador')
 const spanMascotaEnemigo = document.getElementById('mascota-del-enemigo')
 
 const spanVidasJugadador = document.getElementById('vidas-jugador')
-const spanVidasEnemigo = document.getElementById('vidas-enemigo')
+const spanvidasEnemigo = document.getElementById('vidas-enemigo')
 
 const sectionMensajes = document.getElementById('resultado')
 const sectionAtaquesDelJugador = document.getElementById('ataques-del-jugador')
@@ -22,6 +22,7 @@ const sectionAtaquesDelEnemigo = document.getElementById('ataques-del-enemigo')
 
 const sectionMensajeFinal = document.getElementById("resultado")
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
+const contenedorBotonesAtaque = document.getElementById("botones-ataque")
 
 let mokepones = []
 let ataqueJugador
@@ -30,8 +31,11 @@ let opcionDeMokepones
 let inputHip 
 let inputCapi 
 let inputRati 
-let VidasJugador = 3
-let VidasEnemigo = 3
+let mascotaJugador 
+let ataquesJugador
+let vidasJugador = 3
+let vidasEnemigo = 3
+
 
 class Mokepon {
     constructor(nombre,foto,vida,){
@@ -41,6 +45,7 @@ class Mokepon {
         this.ataques = []
     }
 }
+
 
 let hipodoge = new Mokepon ('Hipodoge','./Assets/mokepons_mokepon_hipodoge_attack.png',5)
 let capipepo = new Mokepon ('Capipepo','./Assets/mokepons_mokepon_capipepo_attack.png',5)
@@ -70,6 +75,8 @@ ratigueya.ataques.push(
 )
 
 mokepones.push(hipodoge,capipepo,ratigueya)
+
+
 
 
 
@@ -114,26 +121,38 @@ function seleccionarMascotaJugador() {
     if (inputHip.checked){ 
         alert("Seleccionaste "+inputHip.id)
         spanMascotaJugador.innerHTML = inputHip.id
+        mascotaJugador = inputHip.id
     }else if ( inputCapi.checked) {
         alert("Seleccionaste "+inputCapi.id)
         spanMascotaJugador.innerHTML = inputCapi.id
+        mascotaJugador = inputCapi.id
     }else if ( inputRati.checked) {
         alert("Seleccionaste "+ inputRati.id)
         spanMascotaJugador.innerHTML = inputRati.id
+        mascotaJugador = inputRati.id
     }
- seleccionarMascotaEnemigo ()  
-}   
-    
+    extraerAtaques(mascotaJugador)
+    seleccionarMascotaEnemigo ()  
+}  
+
+function extraerAtaques(mascotaJugador){
+    let ataques
+    for (let i = 0; i < mokepones.length; i++) {
+        if (mascotaJugador === mokepones[i].nombre) 
+         {ataques = mokepones[i].ataques} 
+    } 
+    mostrarAtaques(ataques)
+}  
+
+function mostrarAtaques(ataques){
+    ataques.forEach  
+
+}
+
 function seleccionarMascotaEnemigo(){ 
 
-    let mascotaAleatoria = aleatorio(1,3)
-
-    if (mascotaAleatoria == 1){
-        spanMascotaEnemigo.innerHTML = 'Hipodoge'
-    }else if (mascotaAleatoria == 2){
-        spanMascotaEnemigo.innerHTML = 'Capipepo'
-    }else {spanMascotaEnemigo.innerHTML = 'Ratigueya'
-    }
+    let mascotaAleatoria = aleatorio(0,mokepones.length-1)
+    spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoria].nombre
 }
 
 function aleatorio(min,max){
@@ -182,12 +201,12 @@ function batalla (){
         crearMensaje("EMPATE")
     }else if (ataqueJugador === 'AGUA' && ataqueEnemigo === 'FUEGO' || ataqueJugador === 'FUEGO' && ataqueJugador === 'TIERRA' || ataqueJugador === 'TIERRA' && ataqueJugador === 'AGUA'){
         crearMensaje("GANASTE") 
-        VidasEnemigo --
-        spanVidasEnemigo.innerHTML = VidasEnemigo       
+        vidasEnemigo --
+        spanvidasEnemigo.innerHTML = vidasEnemigo       
     }else {
         crearMensaje("PERDISTE")
-        VidasJugador --
-        spanVidasJugadador.innerHTML = VidasJugador      
+        vidasJugador --
+        spanVidasJugadador.innerHTML = vidasJugador      
     }
      
      
@@ -208,9 +227,9 @@ function crearMensaje (resultado){
 }
 function revisarVidas(){
 
-    if (VidasEnemigo === 0 ) {
+    if (vidasEnemigo === 0 ) {
         crearMensajeFinal('Felicitaciones, ganaste!!!')
-    }else if (VidasJugador === 0){
+    }else if (vidasJugador === 0){
      crearMensajeFinal('Lo siento, perdiste')}
 }
 
