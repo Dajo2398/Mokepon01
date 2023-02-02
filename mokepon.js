@@ -34,6 +34,8 @@ let botonFuego = []
 let botonAgua
 let botonTierra
 let botones = []
+let indexAtaqueJugador
+let indexAtaqueEnemigo
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -161,15 +163,15 @@ function secuenciaAtaque(){
     botones.forEach((boton) =>{
         boton.addEventListener('click',(e) =>{
             if ( e.target.textContent === '🔥'){
-                ataqueJugador.push('FUEGO') 
+                ataqueJugador.push('🔥') 
                 console.log(ataqueJugador)    
                 boton.style.background = '#7f0fa1'  
             }else if (e.target.textContent === '💧'){
-                ataqueJugador.push('AGUA')
+                ataqueJugador.push('💧')
                 console.log(ataqueJugador)    
                 boton.style.background = '#7f0fa1' 
             }else {
-                ataqueJugador.push('TIERRA')
+                ataqueJugador.push('🌱')
                 console.log(ataqueJugador)    
                 boton.style.background = '#7f0fa1'
             } ataqueAleatorioEnemigo()  
@@ -184,6 +186,7 @@ function seleccionarMascotaEnemigo(){
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoria].nombre
     ataquesEnemigo = mokepones[mascotaAleatoria].ataques
     secuenciaAtaque()
+    console.log(ataquesEnemigo)
 }
 
 function aleatorio(min,max){
@@ -194,24 +197,41 @@ return Math.floor(Math.random()*(max-min+1)+min)
 
 function ataqueAleatorioEnemigo(){
     ataqueAleatorio = aleatorio(0,ataquesEnemigo.length -1)
-
-    if (ataqueAleatorio == 0 || ataqueAleatorio == 1 || ataqueAleatorio == 2 ){
+    
+    
+    if (ataqueAleatorio === 0 || ataqueAleatorio === 1 || ataqueAleatorio === 2 ){
         ataqueEnemigo.push (ataquesEnemigo[0].nombre)
     }else if (ataqueAleatorio == 3 ){
         ataqueEnemigo.push (ataquesEnemigo[3].nombre)
     }else {ataquesEnemigo[4].nombre}
-   
-    /* batalla () */
-   
+    console.log(ataqueEnemigo)
+   IniciarBatalla()
+
+}
+
+function IniciarBatalla() { 
+    if (ataqueJugador.length === 5  ){
+        batalla()
+    }
+}
+
+function indexAmbosOponentes(jugador,enemigo){
+    indexAtaqueJugador = ataqueJugador[jugador]
+    indexAtaqueEnemigo = ataqueEnemigo[enemigo]
 }
 
 function batalla (){
         
-    crearMensaje
-
+    for (let i = 0; i < ataqueJugador.length; i++) {
+        if(ataqueJugador[i] === ataqueEnemigo[i]){
+            crearMensaje("EMPATE")
+            indexAmbosOponentes(i,i)
+        }
+        
+    }
     if(ataqueJugador === ataqueEnemigo){
         crearMensaje("EMPATE")
-    }else if (ataqueJugador === 'AGUA' && ataqueEnemigo === 'FUEGO' || ataqueJugador === 'FUEGO' && ataqueJugador === 'TIERRA' || ataqueJugador === 'TIERRA' && ataqueJugador === 'AGUA'){
+    }else if (ataqueJugador === '💧' && ataqueEnemigo === '🔥' || ataqueJugador === '🔥' && ataqueJugador === '🌱' || ataqueJugador === '🌱' && ataqueJugador === '💧'){
         crearMensaje("GANASTE") 
         vidasEnemigo --
         spanvidasEnemigo.innerHTML = vidasEnemigo       
@@ -231,8 +251,8 @@ function crearMensaje (resultado){
     let ParrafoAtaqueDelEnemigo = document.createElement('p')
     
     sectionMensajes.innerHTML = resultado
-    ParrafoAtaqueDelJugador.innerHTML = ataqueJugador
-    ParrafoAtaqueDelEnemigo.innerHTML = ataqueEnemigo
+    ParrafoAtaqueDelJugador.innerHTML = indexAtaqueJugador
+    ParrafoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo
   
     sectionAtaquesDelJugador.appendChild(ParrafoAtaqueDelJugador)
     sectionAtaquesDelEnemigo.appendChild(ParrafoAtaqueDelEnemigo)
