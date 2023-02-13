@@ -138,8 +138,8 @@ function seleccionarMascotaJugador() {
 function extraerAtaques(mascotaJugador){
     let ataques
     for (let i = 0; i < mokepones.length; i++) {
-        if (mascotaJugador === mokepones[i].nombre) 
-         {ataques = mokepones[i].ataques} 
+        if (mascotaJugador === mokepones[i].nombre){
+         ataques = mokepones[i].ataques} 
     }
     mostrarAtaques(ataques)
 }  
@@ -157,7 +157,7 @@ function mostrarAtaques(ataques){
      botones = document.querySelectorAll('.botones-ataque')
      
     })
- }
+}
 
 function secuenciaAtaque(){
     botones.forEach((boton) =>{
@@ -187,6 +187,7 @@ function seleccionarMascotaEnemigo(){
     ataquesEnemigo = mokepones[mascotaAleatoria].ataques
     secuenciaAtaque()
     console.log(ataquesEnemigo)
+    
 }
 
 function aleatorio(min,max){
@@ -196,17 +197,16 @@ return Math.floor(Math.random()*(max-min+1)+min)
 
 
 function ataqueAleatorioEnemigo(){
-    ataqueAleatorio = aleatorio(0,ataquesEnemigo.length -1)
     
+    ataqueAleatorio = aleatorio(0,ataquesEnemigo.length -1) 
     
-    if (ataqueAleatorio === 0 || ataqueAleatorio === 1 || ataqueAleatorio === 2 ){
-        ataqueEnemigo.push (ataquesEnemigo[0].nombre)
-    }else if (ataqueAleatorio == 3 ){
-        ataqueEnemigo.push (ataquesEnemigo[3].nombre)
-    }else {ataquesEnemigo[4].nombre}
-    console.log(ataqueEnemigo)
-   IniciarBatalla()
+    ataqueEnemigo.push(ataquesEnemigo[ataqueAleatorio].nombre)
+    ataquesEnemigo.splice(ataqueAleatorio,1)
 
+    console.log(ataqueEnemigo)
+    console.log(ataquesEnemigo)  
+    console.log(ataqueAleatorio)
+    IniciarBatalla()
 }
 
 function IniciarBatalla() { 
@@ -227,19 +227,19 @@ function batalla (){
             crearMensaje("EMPATE")
             indexAmbosOponentes(i,i)
         }
-        
+        if(ataqueJugador === ataqueEnemigo){
+            crearMensaje("EMPATE")
+        }else if (ataqueJugador === '💧' && ataqueEnemigo === '🔥' || ataqueJugador === '🔥' && ataqueJugador === '🌱' || ataqueJugador === '🌱' && ataqueJugador === '💧'){
+            crearMensaje("GANASTE") 
+            vidasEnemigo --
+            spanvidasEnemigo.innerHTML = vidasEnemigo       
+        }else {
+            crearMensaje("PERDISTE")
+            vidasJugador --
+            spanVidasJugadador.innerHTML = vidasJugador      
+        }
     }
-    if(ataqueJugador === ataqueEnemigo){
-        crearMensaje("EMPATE")
-    }else if (ataqueJugador === '💧' && ataqueEnemigo === '🔥' || ataqueJugador === '🔥' && ataqueJugador === '🌱' || ataqueJugador === '🌱' && ataqueJugador === '💧'){
-        crearMensaje("GANASTE") 
-        vidasEnemigo --
-        spanvidasEnemigo.innerHTML = vidasEnemigo       
-    }else {
-        crearMensaje("PERDISTE")
-        vidasJugador --
-        spanVidasJugadador.innerHTML = vidasJugador      
-    }
+    
      
      
     revisarVidas()
