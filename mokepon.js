@@ -36,6 +36,8 @@ let botonTierra
 let botones = []
 let indexAtaqueJugador
 let indexAtaqueEnemigo
+let victoriasEnemigo = 0
+let victoriasJugador = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -160,6 +162,7 @@ function mostrarAtaques(ataques){
 }
 
 function secuenciaAtaque(){
+
     botones.forEach((boton) =>{
         boton.addEventListener('click',(e) =>{
             if ( e.target.textContent === '🔥'){
@@ -174,7 +177,8 @@ function secuenciaAtaque(){
                 ataqueJugador.push('🌱')
                 console.log(ataqueJugador)    
                 boton.style.background = '#7f0fa1'
-            } ataqueAleatorioEnemigo()  
+            } 
+            ataqueAleatorioEnemigo()  
         })
         
     })
@@ -186,8 +190,7 @@ function seleccionarMascotaEnemigo(){
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoria].nombre
     ataquesEnemigo = mokepones[mascotaAleatoria].ataques
     secuenciaAtaque()
-    console.log(ataquesEnemigo)
-    
+           
 }
 
 function aleatorio(min,max){
@@ -202,16 +205,16 @@ function ataqueAleatorioEnemigo(){
     
     ataqueEnemigo.push(ataquesEnemigo[ataqueAleatorio].nombre)
     ataquesEnemigo.splice(ataqueAleatorio,1)
+    console.log(ataqueEnemigo) 
 
-    console.log(ataqueEnemigo)
-    console.log(ataquesEnemigo)  
-    console.log(ataqueAleatorio)
+    
     IniciarBatalla()
 }
 
 function IniciarBatalla() { 
     if (ataqueJugador.length === 5  ){
         batalla()
+        
     }
 }
 
@@ -225,25 +228,22 @@ function batalla (){
     for (let i = 0; i < ataqueJugador.length; i++) {
         if(ataqueJugador[i] === ataqueEnemigo[i]){
             crearMensaje("EMPATE")
+            indexAmbosOponentes(i,i)          
+        }if (ataqueJugador[i] === '💧' && ataqueEnemigo[i] === '🔥' || ataqueJugador[i] === '🌱' && ataqueEnemigo[i] === '💧' || ataqueJugador[i] === '🔥' && ataqueEnemigo[i] === '🌱' ){
+            crearMensaje("GANASTE")
             indexAmbosOponentes(i,i)
-        }
-        if(ataqueJugador === ataqueEnemigo){
-            crearMensaje("EMPATE")
-        }else if (ataqueJugador === '💧' && ataqueEnemigo === '🔥' || ataqueJugador === '🔥' && ataqueJugador === '🌱' || ataqueJugador === '🌱' && ataqueJugador === '💧'){
-            crearMensaje("GANASTE") 
-            vidasEnemigo --
-            spanvidasEnemigo.innerHTML = vidasEnemigo       
+            victoriasJugador++
+            spanVidasJugadador.innerHTML = victoriasJugador
         }else {
             crearMensaje("PERDISTE")
-            vidasJugador --
-            spanVidasJugadador.innerHTML = vidasJugador      
+            indexAmbosOponentes(i,i)
+            victoriasEnemigo++ 
+            spanvidasEnemigo.innerHTML = victoriasEnemigo
         }
     }
-    
-     
-     
-    revisarVidas()
-}
+    revisarVidas()      
+}    
+
 
 function crearMensaje (resultado){
 
@@ -251,7 +251,7 @@ function crearMensaje (resultado){
     let ParrafoAtaqueDelEnemigo = document.createElement('p')
     
     sectionMensajes.innerHTML = resultado
-    ParrafoAtaqueDelJugador.innerHTML = indexAtaqueJugador
+    ParrafoAtaqueDelJugador.innerHTML = indexAtaqueJugador  
     ParrafoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo
   
     sectionAtaquesDelJugador.appendChild(ParrafoAtaqueDelJugador)
@@ -259,28 +259,29 @@ function crearMensaje (resultado){
 }
 function revisarVidas(){
 
-    if (vidasEnemigo === 0 ) {
+    if (victoriasJugador > victoriasEnemigo ) {
         crearMensajeFinal('Felicitaciones, ganaste!!!')
-    }else if (vidasJugador === 0){
-     crearMensajeFinal('Lo siento, perdiste')}
+    }else if (victoriasJugador < victoriasEnemigo){
+     crearMensajeFinal('Lo siento, perdiste')
+    }else if (victoriasJugador === victoriasEnemigo){
+        crearMensajeFinal('Esto fue un empate')
+    }    
+
 }
 
 function crearMensajeFinal(resultadoFinal){
 
     sectionMensajeFinal.innerHTML =  resultadoFinal
 
-   botonFuego.disabled = true
-   botonAgua.disabled = true
-   botonTierra.disabled = true 
+    botones.forEach((boton) =>{
+        boton.disabled = true
+    })
 
    sectionReiniciarJuego.style.display = 'block'
 }
      
 function reiniciarJuego(){ 
-    location.reload()
-    
-
-    
+    location.reload()  
 
 }
 window.addEventListener('load', iniciarJuego)
