@@ -6,8 +6,6 @@ const botonReiniciar = document.getElementById('boton-reiniciar')
 
 const sectionSeleccionMascota = document.getElementById('seleccionar-mascota')
 const spanMascotaJugador = document.getElementById('mascota-jugador')
-
-
 const spanMascotaEnemigo = document.getElementById('mascota-del-enemigo')
 
 const spanVidasJugadador = document.getElementById('vidas-jugador')
@@ -17,9 +15,9 @@ const sectionMensajes = document.getElementById('resultado')
 const sectionAtaquesDelJugador = document.getElementById('ataques-del-jugador')
 const sectionAtaquesDelEnemigo = document.getElementById('ataques-del-enemigo')
 
-const sectionMensajeFinal = document.getElementById("resultado")
+const sectionMensajeFinal = document.getElementById('resultado')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
-const contenedorBotonesAtaque = document.getElementById("botones-ataque")
+const contenedorBotonesAtaque = document.getElementById('botones-ataque')
 
 let mokepones = []
 let ataqueJugador = []
@@ -29,8 +27,9 @@ let inputHip
 let inputCapi 
 let inputRati 
 let mascotaJugador 
-let ataquesEnemigo = []
-let botonFuego = []
+let ataquesMokepon
+let ataquesEnemigo
+let botonFuego
 let botonAgua
 let botonTierra
 let botones = []
@@ -190,6 +189,7 @@ function seleccionarMascotaEnemigo(){
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoria].nombre
     ataquesEnemigo = mokepones[mascotaAleatoria].ataques
     secuenciaAtaque()
+    console.log(ataquesEnemigo)
            
 }
 
