@@ -19,6 +19,13 @@ const sectionMensajeFinal = document.getElementById('resultado')
 const contenedorTarjetas = document.getElementById('contenedor-tarjetas')
 const contenedorBotonesAtaque = document.getElementById('botones-ataque')
 
+const sectionVerMapa = document.getElementById('ver-mapa')
+const mapa = document.getElementById('mapa')
+
+sectionSeleccionarAtaque.style.display = 'none'
+sectionReiniciarJuego.style.display = 'none'
+sectionVerMapa.style.display = 'none'
+
 let mokepones = []
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -42,7 +49,7 @@ let victoriasEnemigo = 0
 let victoriasJugador = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
-
+let lienzo = mapa.getContext("2d")
 
 class Mokepon {
     constructor(nombre,foto,vida,tipo){
@@ -51,6 +58,14 @@ class Mokepon {
         this.vida = vida 
         this.ataques = []
         this.tipo = tipo
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this. alto = 80
+        this.mapaFoto = new Image ()
+        this.mapaFoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY
     }
 }
 
@@ -109,8 +124,8 @@ mokepones.push(hipodoge,capipepo,ratigueya,langostelvis,pydos,tucapalma)
 
 
 function iniciarJuego()  {
-    sectionSeleccionarAtaque.style.display = 'none'
-    sectionReiniciarJuego.style.display = 'none'    
+    
+      
     botonReiniciar.addEventListener('click',reiniciarJuego)
     botonSeleccionar.addEventListener('click',validarSeleccion)
 
@@ -127,26 +142,23 @@ function iniciarJuego()  {
         inputHip = document.getElementById('Hipodoge')
         inputCapi = document.getElementById('Capipepo')
         inputRati = document.getElementById('Ratigueya')
-        inputLang = document.getElementById('Langostelvis')
-        inputLang = document.getElementById('Pydos')
-        inputLang = document.getElementById('tucapalma')
-
-        
-
+        inputLang = document.getElementById('Langostelvis') 
+        inputPydos = document.getElementById('Pydos') 
+        inputTuca = document.getElementById('Tucapalma')
     })
 }
 
 function validarSeleccion() {
     if (inputCapi.checked || inputHip.checked || inputRati.checked || inputLang.checked || inputPydos.checked || inputTuca.checked ){
-        seleccionarMascotaJugador()
+        seleccionarMascotaJugador() 
     }else {alert("Debes seleccionar un personaje")}
 }    
 
 function seleccionarMascotaJugador() {
     
-    sectionSeleccionarAtaque.style.display = 'flex'    
-    sectionReiniciarJuego.style.display = 'none'    
-    sectionSeleccionMascota.style.display = 'none'
+    // sectionSeleccionarAtaque.style.display = 'flex'    
+    sectionVerMapa.style.display = 'flex'    
+    sectionSeleccionMascota.style.display = 'none'  
   
     if (inputHip.checked){ 
         alert("Seleccionaste "+ inputHip.id)
@@ -160,7 +172,19 @@ function seleccionarMascotaJugador() {
         alert("Seleccionaste "+ inputRati.id)
         spanMascotaJugador.innerHTML = inputRati.id
         mascotaJugador = inputRati.id
-    }
+    }else if (inputLang.checked){
+        alert("Seleccionaste "+ inputLang.id)
+        spanMascotaJugador.innerHTML = inputLang.id
+        mascotaJugador = inputLang.id
+    }else if (inputPydos.checked){
+        alert("Seleccionaste "+ inputPydos.id)
+        spanMascotaJugador.innerHTML = inputPydos.id
+        mascotaJugador = inputPydos.id
+    }else if (inputTuca.checked){
+        alert("Seleccionaste "+ inputTuca.id)
+        spanMascotaJugador.innerHTML = inputTuca.id
+        mascotaJugador = inputTuca.id
+    }    
     extraerAtaques(mascotaJugador)
     seleccionarMascotaEnemigo ()  
 }  
@@ -218,8 +242,7 @@ function seleccionarMascotaEnemigo(){
     spanMascotaEnemigo.innerHTML = mokepones[mascotaAleatoria].nombre
     ataquesEnemigo = mokepones[mascotaAleatoria].ataques
     secuenciaAtaque()
-    console.log(ataquesEnemigo)
-           
+              
 }
 
 function aleatorio(min,max){
@@ -321,3 +344,36 @@ function reiniciarJuego(){
 window.addEventListener('load', iniciarJuego)
 
 
+function pintarPersonaje() {
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        capipepo.mapaFoto,
+        capipepo.x,
+        capipepo.y,
+        capipepo.ancho,
+        capipepo.alto
+    )
+}
+
+function moverCapipepoDer() {
+    capipepo.x = capipepo.x + 5
+    pintarPersonaje()
+}
+
+function moverCapipepoUp() {
+    capipepo.y = capipepo.y - 5
+    pintarPersonaje()
+}
+function moverCapipepoIzq() {
+    capipepo.x = capipepo.x - 5
+    pintarPersonaje()
+}
+
+function moverCapipepoDown() {
+    capipepo.y = capipepo.y + 5
+    pintarPersonaje()
+}
+
+
+
+window.addEventListener('load', iniciarJuego)
