@@ -50,6 +50,7 @@ let victoriasJugador = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
+let intervalo
 
 class Mokepon {
     constructor(nombre,foto,vida,tipo){
@@ -65,7 +66,7 @@ class Mokepon {
         this.mapaFoto = new Image ()
         this.mapaFoto.src = foto
         this.velocidadX = 0
-        this.velocidadY
+        this.velocidadY = 0
     }
 }
 
@@ -158,8 +159,9 @@ function seleccionarMascotaJugador() {
     
     // sectionSeleccionarAtaque.style.display = 'flex'    
     sectionVerMapa.style.display = 'flex'    
-    sectionSeleccionMascota.style.display = 'none'  
-  
+    sectionSeleccionMascota.style.display = 'none' 
+    iniciarMapa() 
+    
     if (inputHip.checked){ 
         alert("Seleccionaste "+ inputHip.id)
         spanMascotaJugador.innerHTML = inputHip.id
@@ -345,6 +347,8 @@ window.addEventListener('load', iniciarJuego)
 
 
 function pintarPersonaje() {
+    capipepo.x = capipepo.x + capipepo.velocidadX
+    capipepo.y = capipepo.y + capipepo.velocidadY
     lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
         capipepo.mapaFoto,
@@ -355,25 +359,47 @@ function pintarPersonaje() {
     )
 }
 
-function moverCapipepoDer() {
-    capipepo.x = capipepo.x + 5
-    pintarPersonaje()
+function moverDer() {
+    capipepo.velocidadX = 5
 }
 
-function moverCapipepoUp() {
-    capipepo.y = capipepo.y - 5
-    pintarPersonaje()
+function moverUp() {
+    capipepo.velocidadY = -5
 }
-function moverCapipepoIzq() {
-    capipepo.x = capipepo.x - 5
-    pintarPersonaje()
+function moverIzq() {
+    capipepo.velocidadX = -5
 }
 
-function moverCapipepoDown() {
-    capipepo.y = capipepo.y + 5
-    pintarPersonaje()
+function moverDown() {
+    capipepo.velocidadY = 5
 }
 
+function detenerMovimiento(){
+    capipepo.velocidadX = 0
+    capipepo.velocidadY = 0
+}
+function keyTapped(event){
+    
+    switch (event.key) {
+        case 'ArrowRight':
+            moverDer()
+            break;
+        case 'ArrowLeft':
+            moverIzq()
+            break;
+        case 'ArrowUp':
+            moverUp()
+            break;
+        case 'ArrowDown':
+            moverDown()
+            break;    
+    }
+}
 
+function iniciarMapa(){
+    intervalo = setInterval(pintarPersonaje,50)
+    window.addEventListener('keydown',keyTapped)
+    window.addEventListener('keyup',detenerMovimiento)
+}
 
 window.addEventListener('load', iniciarJuego)
