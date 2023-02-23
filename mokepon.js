@@ -51,6 +51,9 @@ let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
 let intervalo
+let mapaBackground = new Image()
+let mascotaJugadorObj =[]  
+mapaBackground.src = './Assets/mokemap-ca51ea18-7ac8-492f-be96-6181d766a99d.webp'
 
 class Mokepon {
     constructor(nombre,foto,vida,tipo){
@@ -188,7 +191,8 @@ function seleccionarMascotaJugador() {
         mascotaJugador = inputTuca.id
     }    
     extraerAtaques(mascotaJugador)
-    seleccionarMascotaEnemigo ()  
+    seleccionarMascotaEnemigo ()
+    ObtenerObjetoMascota()  
 }  
 
 function extraerAtaques(mascotaJugador){
@@ -346,37 +350,45 @@ function reiniciarJuego(){
 window.addEventListener('load', iniciarJuego)
 
 
-function pintarPersonaje() {
-    capipepo.x = capipepo.x + capipepo.velocidadX
-    capipepo.y = capipepo.y + capipepo.velocidadY
+function pintarCanvas() {
+    mascotaJugadorObj.x = mascotaJugadorObj.x + mascotaJugadorObj.velocidadX
+    mascotaJugadorObj.y = mascotaJugadorObj.y + mascotaJugadorObj.velocidadY
     lienzo.clearRect(0, 0, mapa.width, mapa.height)
     lienzo.drawImage(
-        capipepo.mapaFoto,
-        capipepo.x,
-        capipepo.y,
-        capipepo.ancho,
-        capipepo.alto
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    lienzo.drawImage(
+        mascotaJugadorObj.mapaFoto,
+        mascotaJugadorObj.x,
+        mascotaJugadorObj.y,
+        mascotaJugadorObj.ancho,
+        mascotaJugadorObj.alto
     )
 }
 
 function moverDer() {
-    capipepo.velocidadX = 5
+    mascotaJugadorObj.velocidadX = 5
 }
 
 function moverUp() {
-    capipepo.velocidadY = -5
+    mascotaJugadorObj.velocidadY = -5
 }
 function moverIzq() {
-    capipepo.velocidadX = -5
+    mascotaJugadorObj.velocidadX = -5
 }
 
 function moverDown() {
-    capipepo.velocidadY = 5
+    mascotaJugadorObj.velocidadY = 5
 }
 
 function detenerMovimiento(){
-    capipepo.velocidadX = 0
-    capipepo.velocidadY = 0
+    
+    mascotaJugadorObj.velocidadX = 0
+    mascotaJugadorObj.velocidadY = 0
 }
 function keyTapped(event){
     
@@ -397,9 +409,19 @@ function keyTapped(event){
 }
 
 function iniciarMapa(){
-    intervalo = setInterval(pintarPersonaje,50)
+    
+    mapa.width = 500
+    mapa.height = 400   
+    intervalo = setInterval(pintarCanvas,50)
     window.addEventListener('keydown',keyTapped)
     window.addEventListener('keyup',detenerMovimiento)
 }
-
+function ObtenerObjetoMascota(){
+    
+    for (let i = 0; i < mokepones.length; i++) {
+        if (mascotaJugador === mokepones[i].nombre){
+         mascotaJugadorObj = mokepones[i]} 
+    }
+    
+}
 window.addEventListener('load', iniciarJuego)
